@@ -6,6 +6,7 @@ class Button():
 
 
     def __init__(self, x, y, img_idle, img_active, img, scale):
+        #Declaring the variable so that other methods can access them
         self.x = x
         self.y = y
         self.img_idle = img_idle

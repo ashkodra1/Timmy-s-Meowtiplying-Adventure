@@ -4,9 +4,10 @@ import Button
 pygame.init()
 
 #Set the window size
-SCREEN_WIDTH = 600 
-SCREEN_HEIGHT = 600
-BTN_SCALE = 2 #Scale of the buttons
+SCREEN_WIDTH = 400
+SCREEN_HEIGHT = 400
+BTN_SCALE_START = 2 #Scale of the start buttons
+BTN_SCALE_EXIT = 2 #Scale of the exit buttons
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Main Menu")
@@ -27,8 +28,8 @@ exit_active_img = pygame.image.load("images/exit_hover.png").convert_alpha()
 
 
 #Create the buttons
-start_btn = Button.Button(((SCREEN_WIDTH/2)-(start_img.get_width())), ((SCREEN_HEIGHT/2)-(start_img.get_height())), start_img, start_active_img, start_img, BTN_SCALE)
-exit_btn = Button.Button(((SCREEN_WIDTH/2)-(exit_img.get_width())), ((SCREEN_HEIGHT/2)-(exit_img.get_height()))+100, exit_img, exit_active_img, exit_img, BTN_SCALE)
+start_btn = Button.Button(((SCREEN_WIDTH/2)-(start_img.get_width())), ((SCREEN_HEIGHT/2)-(start_img.get_height())), start_img, start_active_img, start_img, BTN_SCALE_START)
+exit_btn = Button.Button(((SCREEN_WIDTH/2)-(exit_img.get_width())), ((SCREEN_HEIGHT/2)-(exit_img.get_height()))+100, exit_img, exit_active_img, exit_img, BTN_SCALE_EXIT)
 
 #For when we need to display text
 def draw_text(text, font, text_color, posx, posy):
@@ -54,7 +55,7 @@ while run:
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_ESCAPE:
                 print("YAY") #REMOVE LATER
                 draw_buttons = True
         if event.type== pygame.QUIT :
