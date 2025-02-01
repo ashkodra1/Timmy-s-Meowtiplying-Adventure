@@ -8,7 +8,7 @@ SCREEN_HEIGHT=200
 BACKGROUND_COLOR=(0,0,0)
 
 points=0 #total number of points of the user
-gameContinue=True
+gameOver=False #checks to see if the game is done to display the final messages
 
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
@@ -28,12 +28,14 @@ def calculateTime(start, end):
     if timeTaken/60>=1:
         mins=int (timeTaken/60)
         sec=timeTaken-(mins*60)
-        print("That took", mins, "minutes and", sec, "seconds.")
+        message="That took "+ str(mins)+" minutes and "+str(sec)+ " seconds."
     else:
-        print("That took", timeTaken, "seconds.")
+        message="That took "+ str(timeTaken)+ " seconds."
+    return message
 
 
 generate=True
+message=''#displays the time taken by the user
 start=time.time()
 
 run=True
@@ -62,24 +64,28 @@ while run:
                 try:
                     answer=int(userText)
                     if answer==correct:
-                        draw_text("Correct!", text_font, (255,255,255), 0, 80)
+                        #draw_text("Correct!", text_font, (255,255,255), 0, 80)
                         points+=1
-                    else:
-                        draw_text(("Incorrect. The right answer is", correct,"."), text_font, (255,255,255), 0,80)
+                    #else:
+                        #draw_text(("Incorrect. The right answer is", correct,"."), text_font, (255,255,255), 0,80)
                     userText=''
                     question=''
 
                     if points==10:
-                        draw_text("Game over! You won!", text_font, (255,255,255), 0, 80)
+                        gameOver=True
                         end=time.time()
-                        calculateTime(start,end)
+                        message=calculateTime(start,end)
                         generate=False
                 except:
-                    draw_text("Invalid answer.", text_font, (255,255,255), 0, 80)
+                    #draw_text("Invalid answer.", text_font, (255,255,255), 0, 80)
                     userText=''
                     question=''
             else:
                 userText+=event.unicode
+
+    if gameOver:
+        draw_text("Game over! You won!", text_font, (255,255,255), 0, 80)
+        draw_text(message, text_font, (255,255,255), 0, 100)
 
     draw_text(userText, text_font, (255,255,255),0,40)
     pygame.display.flip()
