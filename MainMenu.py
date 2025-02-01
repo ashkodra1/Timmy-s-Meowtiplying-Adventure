@@ -43,21 +43,22 @@ draw_buttons = True
 
 while run:
     screen.fill(BG_COLOR)
-
-    if (draw_buttons and start_btn.draw(screen)): #if the button is clicked
-        print("CLicked") #REMOVE LATER
-        draw_buttons = False #Stop drawing the buttons
+    if(draw_buttons==False):
+        draw_text("THIS IS THE GAME", font, TEXT_COLOR, 0, 0)
         #--- DISPLAY THE ACTUAL GAME HERE ---
-    if (draw_buttons and exit_btn.draw(screen)):
+
+    if (draw_buttons and start_btn.draw(screen)): #if the start button is clicked
         draw_buttons = False #Stop drawing the buttons
-        sys.exit()
+
+    if (draw_buttons and exit_btn.draw(screen)): #if the exit button is clicked
+        draw_buttons = False #Stop drawing the buttons
+        sys.exit() #end the program
     
 
-    for event in pygame.event.get():
+    for event in pygame.event.get(): 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                print("YAY") #REMOVE LATER
-                draw_buttons = True
+            if event.key == pygame.K_ESCAPE: #when the escape button is pressed
+                draw_buttons = True #allow to display the buttons
         if event.type== pygame.QUIT :
             run = False
 
