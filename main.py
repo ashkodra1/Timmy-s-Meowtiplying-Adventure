@@ -29,8 +29,14 @@ while gameContinue:
         print("Not a valid entry!")
 
 print("Game over! You won!")
-timeTaken=int(end-start)
-# if timeTaken/60>=1:
-#     mins=
 
-print("That took", timeTaken, "seconds")
+#calculate time
+timeTaken=int(end-start)
+if timeTaken/60>=1:
+    mins=int (timeTaken/60)
+    sec=timeTaken-(mins*60)
+    print("That took", mins, "minutes and", sec, "seconds.")
+else:
+    print("That took", timeTaken, "seconds.")
+
+
