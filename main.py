@@ -1,42 +1,135 @@
-import random;
-import time;
+import random
+import time
+import pygame
+
+pygame.init()
+SCREEN_WIDTH=200
+SCREEN_HEIGHT=200
+BACKGROUND_COLOR=(0,0,0)
+
 points=0 #total number of points of the user
 gameContinue=True
 
-print("Welcome to the game!")
+screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+
+text_font=pygame.font.SysFont("Arial", 18, bold=True)
+
+userText='' #users entry
+question='' #the question asked to the user
+
+def draw_text(text, font, text_col, x, y):
+    img=font.render(text, True, text_col)
+    screen.blit(img, (x,y))
+
+# def erase_text(text, font, x, y):
+#     img=font.render(text,True, BACKGROUND_COLOR)
+#     screen.blit(img, (x,y))
+
+# n1=random.randint(0,12)
+# n2=random.randint(0,12)
+# correct=n1*n2
+# question+=str(n1)+'x'+str(n2)+'='
+
+def calculateTime(start, end):
+    #calculate time
+    timeTaken=int(end-start)
+    if timeTaken/60>=1:
+        mins=int (timeTaken/60)
+        sec=timeTaken-(mins*60)
+        print("That took", mins, "minutes and", sec, "seconds.")
+    else:
+        print("That took", timeTaken, "seconds.")
+
+
+generate=True
 start=time.time()
 
-while gameContinue:
-    n1=random.randint(0,12)
-    n2=random.randint(0,12)
-    correct=n1*n2
+run=True
+while run:
+    screen.fill(BACKGROUND_COLOR)
+    draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
 
-    try:
-        print(n1,"x",n2, "=")
-        answer=input()
-        answer=int(answer)
+    if generate:
+        n1=random.randint(0,12)
+        n2=random.randint(0,12)
+        correct=n1*n2
+        question+=str(n1)+'x'+str(n2)+'='
+        generate=False
 
-        if answer==correct:
-            print("Correct!")
-            points+=1
-        else:
-            print("Incorrect. The right answer is", correct,".")
 
-        if points==10:
-            gameContinue=False
-            end=time.time()
-    except:
-        print("Not a valid entry!")
+    draw_text(question, text_font, (255,255,255),0,20)
 
-print("Game over! You won!")
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            run=False
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_BACKSPACE:
+                userText=userText[:-1]
+            elif event.key==pygame.K_RETURN:
+                generate=True
+                try:
+                    answer=int(userText)
+                    print(answer)
+                    if answer==correct:
+                        print("Correct!")
+                        points+=1
+                    else:
+                        print("Incorrect. The right answer is", correct,".")
+                    userText=''
+                    question=''
 
-#calculate time
-timeTaken=int(end-start)
-if timeTaken/60>=1:
-    mins=int (timeTaken/60)
-    sec=timeTaken-(mins*60)
-    print("That took", mins, "minutes and", sec, "seconds.")
-else:
-    print("That took", timeTaken, "seconds.")
+                    if points==10:
+                        print("game done")
+                        end=time.time()
+                        calculateTime(start,end)
+                        run=False
+                except:
+                    print("Invalid answer.")
+                    userText=''
+                    question=''
+            else:
+                userText+=event.unicode
+
+    draw_text(userText, text_font, (255,255,255),0,40)
+    pygame.display.flip()
+pygame.quit()
+
+
+
+#print("Welcome to the game!")
+#start=time.time()
+
+# while gameContinue:
+#     n1=random.randint(0,12)
+#     n2=random.randint(0,12)
+#     correct=n1*n2
+
+#     try:
+#         print(n1,"x",n2, "=")
+#         answer=input()
+#         answer=int(answer)
+
+#         if answer==correct:
+#             print("Correct!")
+#             points+=1
+#         else:
+#             print("Incorrect. The right answer is", correct,".")
+
+#         if points==10:
+#             gameContinue=False
+#             #end=time.time()
+#     except:
+#         print("Not a valid entry!")
+
+# print("Game over! You won!")
+
+# #calculate time
+# timeTaken=int(end-start)
+# if timeTaken/60>=1:
+#     mins=int (timeTaken/60)
+#     sec=timeTaken-(mins*60)
+#     print("That took", mins, "minutes and", sec, "seconds.")
+# else:
+#     print("That took", timeTaken, "seconds.")
 
 
