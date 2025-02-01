@@ -21,14 +21,6 @@ def draw_text(text, font, text_col, x, y):
     img=font.render(text, True, text_col)
     screen.blit(img, (x,y))
 
-# def erase_text(text, font, x, y):
-#     img=font.render(text,True, BACKGROUND_COLOR)
-#     screen.blit(img, (x,y))
-
-# n1=random.randint(0,12)
-# n2=random.randint(0,12)
-# correct=n1*n2
-# question+=str(n1)+'x'+str(n2)+'='
 
 def calculateTime(start, end):
     #calculate time
@@ -69,22 +61,21 @@ while run:
                 generate=True
                 try:
                     answer=int(userText)
-                    print(answer)
                     if answer==correct:
-                        print("Correct!")
+                        draw_text("Correct!", text_font, (255,255,255), 0, 80)
                         points+=1
                     else:
-                        print("Incorrect. The right answer is", correct,".")
+                        draw_text(("Incorrect. The right answer is", correct,"."), text_font, (255,255,255), 0,80)
                     userText=''
                     question=''
 
                     if points==10:
-                        print("game done")
+                        draw_text("Game over! You won!", text_font, (255,255,255), 0, 80)
                         end=time.time()
                         calculateTime(start,end)
-                        run=False
+                        generate=False
                 except:
-                    print("Invalid answer.")
+                    draw_text("Invalid answer.", text_font, (255,255,255), 0, 80)
                     userText=''
                     question=''
             else:
