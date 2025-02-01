@@ -13,16 +13,18 @@ class Player(pygame.sprite.Sprite):
         self.sprites_idle = []      #list of sprites for the idle animation
         self.sprites_sad = []       #list of sprites for the sad animation
 
-        self.sprites_walk.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/walk/01.png'),(100,100)))
-        self.sprites_walk.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/walk/02.png'),(100,100)))
+        self.cat_size = (100,100)       #Size of the cat
 
-        self.sprites_idle.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/idle/01.png'),(100,100)))
-        self.sprites_idle.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/idle/02.png'),(100,100)))
-        self.sprites_idle.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/idle/03.png'),(100,100)))
+        self.sprites_walk.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/walk/01.png'),self.cat_size))
+        self.sprites_walk.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/walk/02.png'),self.cat_size))
 
-        self.sprites_sad.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/sad/01.png'),(100,100)))
-        self.sprites_sad.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/sad/02.png'),(100,100)))
-        self.sprites_sad.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/sad/03.png'),(100,100)))
+        self.sprites_idle.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/idle/01.png'),self.cat_size))
+        self.sprites_idle.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/idle/02.png'),self.cat_size))
+        self.sprites_idle.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/idle/03.png'),self.cat_size))
+
+        self.sprites_sad.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/sad/01.png'),self.cat_size))
+        self.sprites_sad.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/sad/02.png'),self.cat_size))
+        self.sprites_sad.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/sad/03.png'),self.cat_size))
 
         self.num_loops_walk = 0   #number of loops for the walk_animation
 
