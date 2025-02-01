@@ -1,17 +1,17 @@
 import sys
 import pygame
-from scripts.utilities import load_image, load_images
-from scripts.player import Player
+#from scripts.utilities import load_image, load_images
+#from scripts.player import Player
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos_x,pos_y):
+    def __init__(self, pos_x,pos_y): 
         super().__init__()
         self.walk_animation = False
         self.idle_animation = True
         self.sad_animation = False
-        self.sprites_walk = []
-        self.sprites_idle = []
-        self.sprites_sad = []
+        self.sprites_walk = []      #list of sprites for the walking animation
+        self.sprites_idle = []      #list of sprites for the idle animation
+        self.sprites_sad = []       #list of sprites for the sad animation
 
         self.sprites_walk.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/walk/01.png'),(100,100)))
         self.sprites_walk.append(pygame.transform.scale(pygame.image.load('data/images/entities/player/walk/02.png'),(100,100)))
