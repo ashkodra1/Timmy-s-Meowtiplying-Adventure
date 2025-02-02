@@ -68,7 +68,7 @@ class Player(pygame.sprite.Sprite):
             if int(self.current_sprite) >= len(self.sprites_walk):
                self.current_sprite =0
                self.num_loops_walk=self.num_loops_walk+1
-               self.pos_x+=10 #move the cat
+               self.pos_x+=33 #move the cat
                self.rect.topleft = [self.pos_x,self.pos_y] #move the cat
                #self.walk_animation=False  #makes it go once
             if self.num_loops_walk >= num_walk:
@@ -101,7 +101,7 @@ moving_sprites.add(player)
 
 points=0 #total number of points of the user
 gameOver=False #checks to see if the game is done to display the final messages
-text_font=pygame.font.SysFont("Arial", 25, bold=True)
+text_font=pygame.font.SysFont("Arial", 50, bold=True)
 userText='' #users entry
 question='' #the question asked to the user
 
@@ -116,9 +116,9 @@ def calculateTime(start, end):
     if timeTaken/60>=1:
         mins=int (timeTaken/60)
         sec=timeTaken-(mins*60)
-        message="That took "+ str(mins)+" minutes and "+str(sec)+ " seconds."
+        message="You took "+ str(mins)+" minutes and "+str(sec)+ " seconds to get Timmy home."
     else:
-        message="That took "+ str(timeTaken)+ " seconds."
+        message="You took "+ str(timeTaken)+ " seconds to get Timmy home."
     return message
 
 
@@ -132,6 +132,7 @@ while True:
     screen.blit(pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(1200,500)),(0,0))
     #pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(0,0))
 
+    current=time.time()
 
     #draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
 
@@ -164,11 +165,9 @@ while True:
                 try:
                     answer=int(userText)
                     if answer==correct:
-                        #draw_text("Correct!", text_font, (255,255,255), 0, 80)
                         points+=1
                         player.walk()
                     else:
-                        #draw_text(("Incorrect. The right answer is", correct,"."), text_font, (255,255,255), 0,80)
                         player.sad()
                     userText=''
                     question=''
@@ -179,7 +178,6 @@ while True:
                         message=calculateTime(start,end)
                         generate=False
                 except:
-                    #draw_text("Invalid answer.", text_font, (255,255,255), 0, 80)
                     userText=''
                     question=''
                     player.sad()
@@ -189,10 +187,25 @@ while True:
          #   player.idle()
 
     if gameOver:
-        draw_text("Game over! You won!", text_font, (255,255,255), 0, 80)
-        draw_text(message, text_font, (255,255,255), 0, 100)
+        draw_text("Yay! Timmy is home!", text_font, (255,255,255), 0, 0)
+        draw_text(message, text_font, (255,255,255), 0, 60)
 
-    draw_text(userText, text_font, (255,255,255),0,25)
+    draw_text(userText, text_font, (255,255,255),0,60) #display of user inputs
+    currentTime=int(current-start)
+    mins=int (currentTime/60)
+    sec=currentTime-(mins*60)
+    if sec<10 and mins<10:
+        timeMessage="0"+str(mins)+":0"+str(sec)
+    elif sec>=10 and mins<10:
+        timeMessage="0"+str(mins)+":"+str(sec)
+    elif sec<10 and mins>=10:
+        timeMessage=str(mins)+":0"+str(sec)
+    else:
+        timeMessage=str(mins)+":"+str(sec)
+
+    if gameOver==False:
+        draw_text(timeMessage, text_font, (255,255,255), 1050,0) #display of the time
+
 
     moving_sprites.draw(screen)
     moving_sprites.update(0.1,3)
