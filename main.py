@@ -8,6 +8,8 @@ import time
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x,pos_y): 
         super().__init__()
+        self.pos_x=pos_x
+        self.pos_y=pos_y
         self.walk_animation = False
         self.idle_animation = True
         self.sad_animation = False
@@ -66,6 +68,8 @@ class Player(pygame.sprite.Sprite):
             if int(self.current_sprite) >= len(self.sprites_walk):
                self.current_sprite =0
                self.num_loops_walk=self.num_loops_walk+1
+               self.pos_x+=10 #move the cat
+               self.rect.topleft = [self.pos_x,self.pos_y] #move the cat
                #self.walk_animation=False  #makes it go once
             if self.num_loops_walk >= num_walk:
                 self.walk_animation=False
@@ -91,12 +95,12 @@ display = pygame.Surface((320,240))
 clock = pygame.time.Clock()
 
 moving_sprites=pygame.sprite.Group()
-player = Player(100,100)
+player = Player(50,300)
 moving_sprites.add(player)
 
 points=0 #total number of points of the user
 gameOver=False #checks to see if the game is done to display the final messages
-text_font=pygame.font.SysFont("Arial", 18, bold=True)
+text_font=pygame.font.SysFont("Arial", 25, bold=True)
 userText='' #users entry
 question='' #the question asked to the user
 
@@ -123,7 +127,7 @@ start=time.time()
 
 while True:
     screen.fill((0,0,0))
-    draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
+    #draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
 
     if generate:
         n1=random.randint(0,12)
@@ -133,7 +137,7 @@ while True:
         generate=False
 
 
-    draw_text(question, text_font, (255,255,255),0,20)
+    draw_text(question, text_font, (255,255,255),0,0)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -173,6 +177,7 @@ while True:
                     #draw_text("Invalid answer.", text_font, (255,255,255), 0, 80)
                     userText=''
                     question=''
+                    player.sad()
             else:
                 userText+=event.unicode
         #if event.type == pygame.KEYUP:
@@ -182,7 +187,7 @@ while True:
         draw_text("Game over! You won!", text_font, (255,255,255), 0, 80)
         draw_text(message, text_font, (255,255,255), 0, 100)
 
-    draw_text(userText, text_font, (255,255,255),0,40)
+    draw_text(userText, text_font, (255,255,255),0,25)
 
     moving_sprites.draw(screen)
     moving_sprites.update(0.1,3)
