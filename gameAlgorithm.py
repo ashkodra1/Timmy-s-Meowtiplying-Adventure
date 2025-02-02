@@ -4,8 +4,9 @@ import random
 import time
 #from scripts.utilities import load_image, load_images
 #from scripts.player import Player
-
-screen = pygame.display.set_mode((1200,500))
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 500
+screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x,pos_y): 
@@ -121,6 +122,7 @@ def playGame():
     points=0 #total number of points of the user
     gameOver=False #checks to see if the game is done to display the final messages
     text_font=pygame.font.SysFont("Arial", 50, bold=True)
+    instruction_font = pygame.font.SysFont("Arial", 30, bold=True)
     userText='' #users entry
     question='' #the question asked to the user
 
@@ -128,8 +130,10 @@ def playGame():
     generate=True
     message=''#displays the time taken by the user
     start=time.time()
+    gameContinue = True
+    escape = False
 
-    while True:
+    while gameContinue:
         #screen.fill((0,0,0))
         #screen.blit(pygame.image.load('data/images/background/background.png'),(0,0))
         screen.blit(pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(1200,500)),(0,0))
@@ -147,26 +151,27 @@ def playGame():
             generate=False
 
         draw_text(question, text_font, (255,255,255),0,0)
+        draw_text("Press SPACE to restart", instruction_font, (255,255,255),(SCREEN_WIDTH/2) - 120 ,SCREEN_HEIGHT-40)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                # if event.key == pygame.K_a:
-                #     player.walk()
-                # if event.key == pygame.K_d:
-                #     player.sad()
-                # if event.key == pygame.K_w:
-                #     player.idle()
 
                 #typing on the screen    
                 if event.key==pygame.K_BACKSPACE:
                     userText=userText[:-1]
-                elif event.key == pygame.K_ESCAPE:
+
+                elif event.key == pygame.K_ESCAPE: #When escape is pressed, the game goes back to the main menu
                     # --- MAKE IT GO BACK TO THE MAIN MENU ---
-                    print("HI")
-                elif event.key==pygame.K_RETURN:
+                    gameContinue = False
+                    escape = True
+                    
+                elif event.key == pygame.K_SPACE: #if space is pressed
+                    gameContinue = False
+
+                elif event.key==pygame.K_RETURN: #if enter is pressed
                     generate=True
                     try:
                         answer=int(userText)
@@ -217,4 +222,6 @@ def playGame():
         moving_sprites.update(0.1,3)
         pygame.display.flip()
         clock.tick(60)
-    pygame.quit()
+    
+    return escape
+    #pygame.quit()

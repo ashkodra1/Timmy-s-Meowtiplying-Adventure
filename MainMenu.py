@@ -12,6 +12,7 @@ BTN_SCALE_EXIT = 1.5 #Scale of the exit buttons
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Main Menu")
+pygame.display.set_icon(pygame.image.load('data/images/background/icon.png'))
 
 #Defining fonts
 font = pygame.font.SysFont("courier", 40)
@@ -44,23 +45,31 @@ def draw_text(text, font, text_color, posx, posy):
 #Game loop
 run = True
 draw_buttons = True
+draw_game = False
 
 while run:
     screen.blit(background_img, (0,0))
     
 
-    if(draw_buttons==False):
-        draw_text("THIS IS THE GAME", font, TEXT_COLOR, 0, 0)
+    if(draw_game==True): #if it's time to display the game
         #--- DISPLAY THE ACTUAL GAME HERE ---
-        gameAlgorithm.playGame()
-    else:
+        if (gameAlgorithm.playGame()): #check is the escape key was pressed (TRUE) or if the space key was pressed (FALSE)
+            draw_game = False #stop drawing the game
+            draw_buttons = True #draw the buttons
+
+            #reajust the window to display the main menu again
+            screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+            pygame.display.set_caption("Main Menu")
+            pygame.display.set_icon(pygame.image.load('data/images/background/icon.png'))
+    
+    else: #If it'S not time to display the game
         screen.blit(logo_img, (((SCREEN_WIDTH/2)-(logo_img.get_width()/2)),25))
 
     if (draw_buttons and start_btn.draw(screen)): #if the start button is clicked
         draw_buttons = False #Stop drawing the buttons
+        draw_game = True #Draw the game
 
     if (draw_buttons and exit_btn.draw(screen)): #if the exit button is clicked
-        draw_buttons = False #Stop drawing the buttons
         sys.exit() #end the program
     
 
