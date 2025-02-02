@@ -90,6 +90,7 @@ class Player(pygame.sprite.Sprite):
 
 pygame.init()
 pygame.display.set_caption('Game!')
+pygame.display.set_icon(pygame.image.load('data/images/background/icon.png'))
 #screen = pygame.display.set_mode((600,480))
 screen = pygame.display.set_mode((1200,500))
 display = pygame.Surface((320,240))
