@@ -2,8 +2,6 @@ import sys
 import pygame
 import random
 import time
-#from scripts.utilities import load_image, load_images
-#from scripts.player import Player
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 500
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
@@ -73,7 +71,6 @@ class Player(pygame.sprite.Sprite):
                self.num_loops_walk=self.num_loops_walk+1
                self.pos_x+=33 #move the cat
                self.rect.topleft = [self.pos_x,self.pos_y] #move the cat
-               #self.walk_animation=False  #makes it go once
             if self.num_loops_walk >= num_walk:
                 self.walk_animation=False
                 self.num_loops_walk=0
@@ -110,7 +107,6 @@ def playGame():
     pygame.init()
     pygame.display.set_caption('Game!')
     pygame.display.set_icon(pygame.image.load('data/images/background/icon.png'))
-    #screen = pygame.display.set_mode((600,480))
     screen = pygame.display.set_mode((1200,500))
     display = pygame.Surface((320,240))
     clock = pygame.time.Clock()
@@ -134,14 +130,9 @@ def playGame():
     escape = False
 
     while gameContinue:
-        #screen.fill((0,0,0))
-        #screen.blit(pygame.image.load('data/images/background/background.png'),(0,0))
         screen.blit(pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(1200,500)),(0,0))
-        #pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(0,0))
 
         current=time.time()
-
-        #draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
 
         if generate:
             n1=random.randint(0,12)
@@ -194,8 +185,6 @@ def playGame():
                         player.sad()
                 else:
                     userText+=event.unicode
-            #if event.type == pygame.KEYUP:
-            #   player.idle()
 
         if gameOver:
             draw_text("Yay! Timmy is home!", text_font, (255,255,255), 50, 0)
@@ -224,4 +213,3 @@ def playGame():
         clock.tick(60)
     
     return escape
-    #pygame.quit()
