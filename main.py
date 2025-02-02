@@ -90,7 +90,8 @@ class Player(pygame.sprite.Sprite):
 
 pygame.init()
 pygame.display.set_caption('Game!')
-screen = pygame.display.set_mode((600,480))
+#screen = pygame.display.set_mode((600,480))
+screen = pygame.display.set_mode((1200,500))
 display = pygame.Surface((320,240))
 clock = pygame.time.Clock()
 
@@ -126,7 +127,12 @@ message=''#displays the time taken by the user
 start=time.time()
 
 while True:
-    screen.fill((0,0,0))
+    #screen.fill((0,0,0))
+    #screen.blit(pygame.image.load('data/images/background/background.png'),(0,0))
+    screen.blit(pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(1200,500)),(0,0))
+    #pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(0,0))
+
+
     #draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
 
     if generate:
@@ -135,7 +141,6 @@ while True:
         correct=n1*n2
         question+=str(n1)+'x'+str(n2)+'='
         generate=False
-
 
     draw_text(question, text_font, (255,255,255),0,0)
 
