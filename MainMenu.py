@@ -1,5 +1,6 @@
 import pygame, sys
 import Button
+import gameAlgorithm
 
 pygame.init()
 
@@ -51,6 +52,7 @@ while run:
     if(draw_buttons==False):
         draw_text("THIS IS THE GAME", font, TEXT_COLOR, 0, 0)
         #--- DISPLAY THE ACTUAL GAME HERE ---
+        gameAlgorithm.playGame()
     else:
         screen.blit(logo_img, (((SCREEN_WIDTH/2)-(logo_img.get_width()/2)),25))
 

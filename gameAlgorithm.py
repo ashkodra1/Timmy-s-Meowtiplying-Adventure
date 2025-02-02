@@ -5,6 +5,8 @@ import time
 #from scripts.utilities import load_image, load_images
 #from scripts.player import Player
 
+screen = pygame.display.set_mode((1200,500))
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x,pos_y): 
         super().__init__()
@@ -103,113 +105,116 @@ def calculateTime(start, end):
         message="You took "+ str(timeTaken)+ " seconds to get Timmy home."
     return message
 
+def playGame():
+    pygame.init()
+    pygame.display.set_caption('Game!')
+    pygame.display.set_icon(pygame.image.load('data/images/background/icon.png'))
+    #screen = pygame.display.set_mode((600,480))
+    screen = pygame.display.set_mode((1200,500))
+    display = pygame.Surface((320,240))
+    clock = pygame.time.Clock()
 
-pygame.init()
-pygame.display.set_caption('Game!')
-pygame.display.set_icon(pygame.image.load('data/images/background/icon.png'))
-#screen = pygame.display.set_mode((600,480))
-screen = pygame.display.set_mode((1200,500))
-display = pygame.Surface((320,240))
-clock = pygame.time.Clock()
+    moving_sprites=pygame.sprite.Group()
+    player = Player(50,300)
+    moving_sprites.add(player)
 
-moving_sprites=pygame.sprite.Group()
-player = Player(50,300)
-moving_sprites.add(player)
-
-points=0 #total number of points of the user
-gameOver=False #checks to see if the game is done to display the final messages
-text_font=pygame.font.SysFont("Arial", 50, bold=True)
-userText='' #users entry
-question='' #the question asked to the user
+    points=0 #total number of points of the user
+    gameOver=False #checks to see if the game is done to display the final messages
+    text_font=pygame.font.SysFont("Arial", 50, bold=True)
+    userText='' #users entry
+    question='' #the question asked to the user
 
 
-generate=True
-message=''#displays the time taken by the user
-start=time.time()
+    generate=True
+    message=''#displays the time taken by the user
+    start=time.time()
 
-while True:
-    #screen.fill((0,0,0))
-    #screen.blit(pygame.image.load('data/images/background/background.png'),(0,0))
-    screen.blit(pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(1200,500)),(0,0))
-    #pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(0,0))
+    while True:
+        #screen.fill((0,0,0))
+        #screen.blit(pygame.image.load('data/images/background/background.png'),(0,0))
+        screen.blit(pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(1200,500)),(0,0))
+        #pygame.transform.scale(pygame.image.load('data/images/background/background.png'),(0,0))
 
-    current=time.time()
+        current=time.time()
 
-    #draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
+        #draw_text("Welcome to the game!", text_font, (255,255,255), 0, 0)
 
-    if generate:
-        n1=random.randint(0,12)
-        n2=random.randint(0,12)
-        correct=n1*n2
-        question+=str(n1)+'x'+str(n2)+'='
-        generate=False
+        if generate:
+            n1=random.randint(0,12)
+            n2=random.randint(0,12)
+            correct=n1*n2
+            question+=str(n1)+'x'+str(n2)+'='
+            generate=False
 
-    draw_text(question, text_font, (255,255,255),0,0)
+        draw_text(question, text_font, (255,255,255),0,0)
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN:
-            # if event.key == pygame.K_a:
-            #     player.walk()
-            # if event.key == pygame.K_d:
-            #     player.sad()
-            # if event.key == pygame.K_w:
-            #     player.idle()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                # if event.key == pygame.K_a:
+                #     player.walk()
+                # if event.key == pygame.K_d:
+                #     player.sad()
+                # if event.key == pygame.K_w:
+                #     player.idle()
 
-            #typing on the screen    
-            if event.key==pygame.K_BACKSPACE:
-                userText=userText[:-1]
-            elif event.key==pygame.K_RETURN:
-                generate=True
-                try:
-                    answer=int(userText)
-                    if answer==correct:
-                        points+=1
-                        player.walk()
-                    else:
+                #typing on the screen    
+                if event.key==pygame.K_BACKSPACE:
+                    userText=userText[:-1]
+                elif event.key == pygame.K_ESCAPE:
+                    # --- MAKE IT GO BACK TO THE MAIN MENU ---
+                    print("HI")
+                elif event.key==pygame.K_RETURN:
+                    generate=True
+                    try:
+                        answer=int(userText)
+                        if answer==correct:
+                            points+=1
+                            player.walk()
+                        else:
+                            player.sad()
+                        userText=''
+                        question=''
+
+                        if points==10:
+                            gameOver=True
+                            end=time.time()
+                            message=calculateTime(start,end)
+                            generate=False
+                    except:
+                        userText=''
+                        question=''
                         player.sad()
-                    userText=''
-                    question=''
+                else:
+                    userText+=event.unicode
+            #if event.type == pygame.KEYUP:
+            #   player.idle()
 
-                    if points==10:
-                        gameOver=True
-                        end=time.time()
-                        message=calculateTime(start,end)
-                        generate=False
-                except:
-                    userText=''
-                    question=''
-                    player.sad()
-            else:
-                userText+=event.unicode
-        #if event.type == pygame.KEYUP:
-         #   player.idle()
+        if gameOver:
+            draw_text("Yay! Timmy is home!", text_font, (255,255,255), 0, 0)
+            draw_text(message, text_font, (255,255,255), 0, 60)
 
-    if gameOver:
-        draw_text("Yay! Timmy is home!", text_font, (255,255,255), 0, 0)
-        draw_text(message, text_font, (255,255,255), 0, 60)
+        draw_text(userText, text_font, (255,255,255),0,60) #display of user inputs
+        currentTime=int(current-start)
+        mins=int (currentTime/60)
+        sec=currentTime-(mins*60)
+        if sec<10 and mins<10:
+            timeMessage="0"+str(mins)+":0"+str(sec)
+        elif sec>=10 and mins<10:
+            timeMessage="0"+str(mins)+":"+str(sec)
+        elif sec<10 and mins>=10:
+            timeMessage=str(mins)+":0"+str(sec)
+        else:
+            timeMessage=str(mins)+":"+str(sec)
 
-    draw_text(userText, text_font, (255,255,255),0,60) #display of user inputs
-    currentTime=int(current-start)
-    mins=int (currentTime/60)
-    sec=currentTime-(mins*60)
-    if sec<10 and mins<10:
-        timeMessage="0"+str(mins)+":0"+str(sec)
-    elif sec>=10 and mins<10:
-        timeMessage="0"+str(mins)+":"+str(sec)
-    elif sec<10 and mins>=10:
-        timeMessage=str(mins)+":0"+str(sec)
-    else:
-        timeMessage=str(mins)+":"+str(sec)
-
-    if gameOver==False:
-        draw_text(timeMessage, text_font, (255,255,255), 1050,0) #display of the time
+        if gameOver==False:
+            draw_text(timeMessage, text_font, (255,255,255), 1050,0) #display of the time
 
 
-    moving_sprites.draw(screen)
-    moving_sprites.update(0.1,3)
-    pygame.display.flip()
-    clock.tick(60)
-pygame.quit()
+        moving_sprites.draw(screen)
+        moving_sprites.update(0.1,3)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
