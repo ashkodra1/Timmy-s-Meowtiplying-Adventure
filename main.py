@@ -87,6 +87,22 @@ class Player(pygame.sprite.Sprite):
                 self.idle_animation=True
             self.image = self.sprites_sad[int(self.current_sprite)]
 
+def draw_text(text, font, text_col, x, y):
+    img=font.render(text, True, text_col)
+    screen.blit(img, (x,y))
+
+
+def calculateTime(start, end):
+    #calculate time
+    timeTaken=int(end-start)
+    if timeTaken/60>=1:
+        mins=int (timeTaken/60)
+        sec=timeTaken-(mins*60)
+        message="You took "+ str(mins)+" minutes and "+str(sec)+ " seconds to get Timmy home."
+    else:
+        message="You took "+ str(timeTaken)+ " seconds to get Timmy home."
+    return message
+
 
 pygame.init()
 pygame.display.set_caption('Game!')
@@ -105,22 +121,6 @@ gameOver=False #checks to see if the game is done to display the final messages
 text_font=pygame.font.SysFont("Arial", 50, bold=True)
 userText='' #users entry
 question='' #the question asked to the user
-
-def draw_text(text, font, text_col, x, y):
-    img=font.render(text, True, text_col)
-    screen.blit(img, (x,y))
-
-
-def calculateTime(start, end):
-    #calculate time
-    timeTaken=int(end-start)
-    if timeTaken/60>=1:
-        mins=int (timeTaken/60)
-        sec=timeTaken-(mins*60)
-        message="You took "+ str(mins)+" minutes and "+str(sec)+ " seconds to get Timmy home."
-    else:
-        message="You took "+ str(timeTaken)+ " seconds to get Timmy home."
-    return message
 
 
 generate=True
