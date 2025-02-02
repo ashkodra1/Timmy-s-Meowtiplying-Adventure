@@ -1,6 +1,8 @@
-import pygame, sys
+import pygame, sys, os
 import Button
 import gameAlgorithm
+
+os.environ['SDL_VIDEO_CENTERED'] = '1' #Center the window
 
 pygame.init()
 

@@ -150,7 +150,7 @@ def playGame():
             question+=str(n1)+'x'+str(n2)+'='
             generate=False
 
-        draw_text(question, text_font, (255,255,255),0,0)
+        draw_text(question, text_font, (255,255,255),50,0)
         draw_text("Press SPACE to restart", instruction_font, (255,255,255),(SCREEN_WIDTH/2) - 120 ,SCREEN_HEIGHT-40)
 
         for event in pygame.event.get():
@@ -198,10 +198,10 @@ def playGame():
             #   player.idle()
 
         if gameOver:
-            draw_text("Yay! Timmy is home!", text_font, (255,255,255), 0, 0)
-            draw_text(message, text_font, (255,255,255), 0, 60)
+            draw_text("Yay! Timmy is home!", text_font, (255,255,255), 50, 0)
+            draw_text(message, text_font, (255,255,255), 50, 60)
 
-        draw_text(userText, text_font, (255,255,255),0,60) #display of user inputs
+        draw_text(userText, text_font, (255,255,255),50,60) #display of user inputs
         currentTime=int(current-start)
         mins=int (currentTime/60)
         sec=currentTime-(mins*60)
