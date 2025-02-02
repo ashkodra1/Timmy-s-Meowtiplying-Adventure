@@ -4,10 +4,10 @@ import Button
 pygame.init()
 
 #Set the window size
-SCREEN_WIDTH = 400
+SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 400
-BTN_SCALE_START = 2 #Scale of the start buttons
-BTN_SCALE_EXIT = 2 #Scale of the exit buttons
+BTN_SCALE_START = 1.5 #Scale of the start buttons
+BTN_SCALE_EXIT = 1.5 #Scale of the exit buttons
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Main Menu")
@@ -24,12 +24,13 @@ start_img = pygame.image.load("images/start.png").convert_alpha()
 exit_img = pygame.image.load("images/exit.png").convert_alpha()
 start_active_img = pygame.image.load("images/start_hover.png").convert_alpha()
 exit_active_img = pygame.image.load("images/exit_hover.png").convert_alpha()
+background_img = pygame.image.load("images/background.png").convert_alpha()
 
 
 
 #Create the buttons
-start_btn = Button.Button(((SCREEN_WIDTH/2)-(start_img.get_width())), ((SCREEN_HEIGHT/2)-(start_img.get_height())), start_img, start_active_img, start_img, BTN_SCALE_START)
-exit_btn = Button.Button(((SCREEN_WIDTH/2)-(exit_img.get_width())), ((SCREEN_HEIGHT/2)-(exit_img.get_height()))+100, exit_img, exit_active_img, exit_img, BTN_SCALE_EXIT)
+start_btn = Button.Button(((SCREEN_WIDTH/2)-(start_img.get_width()/1.5)), ((SCREEN_HEIGHT/8)-(start_img.get_height()/2)), start_img, start_active_img, start_img, BTN_SCALE_START)
+exit_btn = Button.Button(((SCREEN_WIDTH/2)-(exit_img.get_width()/1.5)), ((SCREEN_HEIGHT/8)-(exit_img.get_height()/2))+75, exit_img, exit_active_img, exit_img, BTN_SCALE_EXIT)
 
 #For when we need to display text
 def draw_text(text, font, text_color, posx, posy):
@@ -42,7 +43,7 @@ run = True
 draw_buttons = True
 
 while run:
-    screen.fill(BG_COLOR)
+    screen.blit(background_img, (0,0))
     if(draw_buttons==False):
         draw_text("THIS IS THE GAME", font, TEXT_COLOR, 0, 0)
         #--- DISPLAY THE ACTUAL GAME HERE ---
