@@ -9,3 +9,8 @@ The user has to solve ten questions regarding multiplication tables that can ran
 
 ## How we built it
 We built our project using the Python library called Pygame. This library helped us create the visuals and display our game.
+
+## Here's a video demo of our game :
+
+https://github.com/user-attachments/assets/f9cacc71-83ff-4e93-8912-9f500f8ddded
+
