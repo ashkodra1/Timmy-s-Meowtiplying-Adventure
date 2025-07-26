@@ -8,7 +8,7 @@ Our base inspiration was the game Crossy road. We were mostly inspired by the id
 The user has to solve ten questions regarding multiplication tables that can range from numbers 0 to 12. For each right answer, Timmy advances and gets closer to home. The game also displays a timer. Once the user has completed the game, a message will appear that displays their time. At any point in the game, the user can choose to restart, by pressing the space button, or to go back to the main menu, by pressing the escape button.
 
 ## How we built it
-We built our project using the Python library called Pygame. This library helped us create the visuals and display our game.
+We built our project using the Python library called Pygame. This library helped us create the visuals and display our game. All visuals were designed and hand-drawn by us!
 
 ## Here's a video demo of our game :
 
