@@ -1,5 +1,5 @@
 # Timmy's Meowtiplying Adventure
-Get Timmy home by solving these multiplications! This game was designed for elementary school kids trying to learn their multiplication tables in a fun way!
+Get Timmy home by solving these multiplications! This game was designed for elementary school kids trying to learn their multiplication tables. With vibrant visuals, engaging levels, and positive feedback, this game transforms repetitive math practice into an enjoyable quest.
 
 ## Inspiration
 Our base inspiration was the game Crossy road. We were mostly inspired by the idea of an animal moving forward in a cartoon style environment. We wanted to make something that is education based but also fun, so we decided to help out younger learners with something we have all had to go through: learning multiplication tables.
